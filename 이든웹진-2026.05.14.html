@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이든웹진 - 2026년 5월 14일</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #fdf8f0;
+      --warm-white: #fffdf9;
+      --ink: #1c1a17;
+      --ink-light: #3d3830;
+      --ink-muted: #6b6358;
+      --gold: #b8945a;
+      --gold-light: #d4ae7a;
+      --gold-pale: #f0e4cc;
+      --rust: #8b4a2e;
+      --sage: #5a7a5e;
+      --rule: #d6c9b0;
+      --accent-line: #b8945a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 300;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── 신문 배경 노이즈 텍스처 ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ════════════════════════════════
+       MASTHEAD
+    ════════════════════════════════ */
+    .masthead {
+      text-align: center;
+      padding: 52px 0 28px;
+      border-bottom: 3px double var(--rule);
+      animation: fadeDown 0.8s ease both;
+    }
+
+    .masthead-eyebrow {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .masthead-logo {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(2.2rem, 6vw, 3.4rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .masthead-logo span {
+      color: var(--gold);
+    }
+
+    .masthead-rule {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin: 18px auto;
+    }
+
+    .masthead-meta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .meta-item {
+      padding: 0 16px;
+      position: relative;
+    }
+
+    .meta-item + .meta-item::before {
+      content: '|';
+      position: absolute;
+      left: 0;
+      color: var(--rule);
+    }
+
+    .meta-date {
+      font-weight: 500;
+      color: var(--ink-light);
+    }
+
+    .meta-dday {
+      font-weight: 700;
+      color: var(--rust);
+    }
+
+    /* ════════════════════════════════
+       OPENING LETTER
+    ════════════════════════════════ */
+    .opening {
+      padding: 44px 0 36px;
+      border-bottom: 1px solid var(--rule);
+      animation: fadeUp 0.9s 0.15s ease both;
+    }
+
+    .opening-text {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.95rem;
+      color: var(--ink-light);
+      line-height: 2.1;
+      text-align: justify;
+      word-break: keep-all;
+    }
+
+    .opening-text + .opening-text {
+      margin-top: 18px;
+    }
+
+    .opening-sign {
+      margin-top: 28px;
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      text-align: right;
+      font-style: italic;
+    }
+
+    /* ════════════════════════════════
+       SECTION CARD
+    ════════════════════════════════ */
+    .section-card {
+      margin-top: 44px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .section-card:nth-child(1) { animation-delay: 0.2s; }
+    .section-card:nth-child(2) { animation-delay: 0.35s; }
+    .section-card:nth-child(3) { animation-delay: 0.5s; }
+    .section-card:nth-child(4) { animation-delay: 0.65s; }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .section-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .section-title-block {}
+
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(1.05rem, 2.8vw, 1.22rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.5;
+      word-break: keep-all;
+    }
+
+    .section-subtitle {
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      margin-top: 3px;
+      word-break: keep-all;
+    }
+
+    .section-body {
+      font-size: 0.92rem;
+      color: var(--ink-light);
+      line-height: 2.0;
+      word-break: keep-all;
+      text-align: justify;
+      padding-left: 8px;
+      border-left: 3px solid var(--gold-pale);
+    }
+
+    /* ── 인용구 블록 ── */
+    .quote-block {
+      margin: 24px 0 0;
+      padding: 20px 24px;
+      background: var(--warm-white);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 6px 6px 0;
+    }
+
+    .quote-en {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.98rem;
+      color: var(--ink-light);
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .quote-divider {
+      width: 30px;
+      height: 1px;
+      background: var(--gold-light);
+      margin-bottom: 10px;
+    }
+
+    .quote-ko {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+
+    .quote-source {
+      display: block;
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: var(--gold);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── 구분선 ── */
+    .section-rule {
+      margin-top: 44px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-rule::before,
+    .section-rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .section-rule-diamond {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    /* ════════════════════════════════
+       STUDY TIP — special styling
+    ════════════════════════════════ */
+    .tip-card {
+      margin-top: 44px;
+      background: linear-gradient(135deg, #1c1a17 0%, #2d2822 100%);
+      border-radius: 8px;
+      padding: 36px 36px 32px;
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.6s ease both;
+    }
+
+    .tip-card::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, rgba(184,148,90,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .tip-card .section-label {
+      color: var(--gold-light);
+    }
+
+    .tip-card .section-title {
+      color: var(--cream);
+    }
+
+    .tip-card .section-subtitle {
+      color: rgba(253,248,240,0.55);
+    }
+
+    .tip-card .section-body {
+      color: rgba(253,248,240,0.82);
+      border-left-color: rgba(184,148,90,0.4);
+    }
+
+    .tip-card .quote-block {
+      background: rgba(255,255,255,0.05);
+      border-left-color: var(--gold-light);
+    }
+
+    .tip-card .quote-en {
+      color: var(--gold-pale);
+    }
+
+    .tip-card .quote-ko {
+      color: rgba(253,248,240,0.65);
+    }
+
+    .tip-card .quote-source {
+      color: var(--gold-light);
+    }
+
+    /* ════════════════════════════════
+       CLOSING
+    ════════════════════════════════ */
+    .closing {
+      margin-top: 60px;
+      text-align: center;
+      padding-top: 40px;
+      border-top: 3px double var(--rule);
+      animation: fadeUp 0.8s 0.8s ease both;
+      opacity: 0;
+    }
+
+    .closing-ornament {
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+      color: var(--gold);
+    }
+
+    .closing-text {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.92rem;
+      color: var(--ink-light);
+      line-height: 2.0;
+      word-break: keep-all;
+    }
+
+    .closing-sign {
+      margin-top: 24px;
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    .closing-sign strong {
+      display: block;
+      color: var(--ink);
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.0rem;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+    .footer {
+      margin-top: 52px;
+      padding: 28px 0 0;
+      border-top: 1px solid var(--rule);
+      text-align: center;
+      font-size: 0.73rem;
+      color: var(--ink-muted);
+      line-height: 1.9;
+    }
+
+    .footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .footer-brand {
+      font-weight: 700;
+      color: var(--ink-light);
+      font-size: 0.82rem;
+    }
+
+    /* ════════════════════════════════
+       ANIMATIONS
+    ════════════════════════════════ */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════ */
+    @media (max-width: 520px) {
+      .wrapper { padding: 0 18px 60px; }
+      .masthead { padding: 36px 0 22px; }
+      .tip-card { padding: 26px 22px 24px; }
+      .quote-block { padding: 16px 18px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- ──────────────── MASTHEAD ──────────────── -->
+  <header class="masthead">
+    <p class="masthead-eyebrow">Eden Learning Center · Weekly Journal</p>
+    <h1 class="masthead-logo">📖 이든<span>웹진</span></h1>
+    <div class="masthead-rule"></div>
+    <div class="masthead-meta">
+      <div class="meta-item meta-date">2026년 5월 14일, 목요일</div>
+      <div class="meta-item meta-dday">수능 D-189</div>
+      <div class="meta-item meta-dday">1학기 기말고사 D-41</div>
+    </div>
+  </header>
+
+  <!-- ──────────────── OPENING ──────────────── -->
+  <section class="opening">
+    <p class="opening-text">
+      초여름의 기운이 짙어지는 5월의 중순입니다. 수능과 기말고사라는 무거운 목표를 향해 매일 자신과의 싸움을 이어가고 있는 수험생 여러분, 그리고 곁에서 변함없는 지지를 보내주시는 학부모님들께 깊은 응원의 마음을 전합니다.
+    </p>
+    <p class="opening-text">
+      때로는 지치고, 때로는 막막함이 밀려오겠지만 여러분이 흘리는 땀방울은 결코 헛되지 않습니다. 오늘 이든웹진이 여러분의 굽은 어깨를 펴게 하는 작은 온기와 명쾌한 길잡이가 되기를 바랍니다.
+    </p>
+  </section>
+
+  <div class="section-rule"><div class="section-rule-diamond"></div></div>
+
+  <!-- ──────────────── SECTION 1 ──────────────── -->
+  <article class="section-card">
+    <div class="section-header">
+      <div class="section-icon">💌</div>
+      <div class="section-title-block">
+        <p class="section-label">Message 01</p>
+        <h2 class="section-title">멈춰 선 그 자리에서도, 당신의 시계는 내일을 향해 흐르고 있습니다</h2>
+        <p class="section-subtitle">잠시 멈춘 발걸음은 포기가 아니라 더 멀리 뛰기 위한 깊은 호흡입니다.</p>
+      </div>
+    </div>
+    <p class="section-body">
+      잠시 학원 문을 두드리기 망설여지는 날이 있습니다. 며칠 쉬었다는 죄책감이나 뒤처졌다는 무거운 압박감에 발걸음이 떨어지지 않는다면, 그 짐을 온전히 혼자 짊어지려 하지 마세요. 잠시 숨을 고르는 시간이었을 뿐, 시작하기에 늦은 때란 결코 없습니다. 언제든 다시 돌아와 신발 끈을 고쳐 맬 수 있도록, 우리는 변함없는 자리에서 여러분을 기다리고 있습니다.
+    </p>
+    <div class="quote-block">
+      <p class="quote-en">"Our greatest glory is not in never falling, but in rising every time we fall."</p>
+      <div class="quote-divider"></div>
+      <p class="quote-ko">우리의 가장 큰 영광은 한 번도 넘어지지 않는 데 있는 것이 아니라, 넘어질 때마다 다시 일어나는 데 있다.</p>
+      <span class="quote-source">— Confucius (공자)</span>
+    </div>
+  </article>
+
+  <div class="section-rule"><div class="section-rule-diamond"></div></div>
+
+  <!-- ──────────────── SECTION 2 ──────────────── -->
+  <article class="section-card">
+    <div class="section-header">
+      <div class="section-icon">🔥</div>
+      <div class="section-title-block">
+        <p class="section-label">Message 02</p>
+        <h2 class="section-title">묵묵히 쌓아 올린 오늘의 땀방울이 내일의 단단한 기적이 됩니다</h2>
+        <p class="section-subtitle">스스로를 한계로 밀어붙이는 치열한 일상이 눈부신 결과를 완성합니다.</p>
+      </div>
+    </div>
+    <p class="section-body">
+      수능과 기말고사를 향해 달리는 길은 끝이 보이지 않는 긴 터널처럼 느껴질 것입니다. 하지만 매일 아침 졸음을 이겨내고 책상 앞에 앉아 스스로와 타협하지 않는 여러분의 끈기는 가장 강력한 무기입니다. N수생 여러분의 뼈저린 절실함과 고3 수험생 여러분의 간절함을 믿고, 흔들림 없이 목표를 향해 정진하십시오.
+    </p>
+    <div class="quote-block">
+      <p class="quote-en">"Success is the sum of small efforts, repeated day in and day out."</p>
+      <div class="quote-divider"></div>
+      <p class="quote-ko">성공은 매일 반복된 작은 노력들의 합이다.</p>
+      <span class="quote-source">— Robert Collier (로버트 콜리어)</span>
+    </div>
+  </article>
+
+  <div class="section-rule"><div class="section-rule-diamond"></div></div>
+
+  <!-- ──────────────── SECTION 3 ──────────────── -->
+  <article class="section-card">
+    <div class="section-header">
+      <div class="section-icon">🫂</div>
+      <div class="section-title-block">
+        <p class="section-label">Message 03</p>
+        <h2 class="section-title">버거운 짐을 잠시 내려놓고, 크게 한 번 숨을 내쉬어도 괜찮습니다</h2>
+        <p class="section-subtitle">남몰래 삼킨 불안과 눈물은 여러분이 훌륭히 성장하고 있다는 훈장입니다.</p>
+      </div>
+    </div>
+    <p class="section-body">
+      쏟아지는 졸음과 막연한 두려움 속에서 홀로 눈물을 삼키는 밤이 있다는 것을 잘 알고 있습니다. 남들은 다 앞서가는 것 같아 조급해질 때, 스스로를 채찍질하기보다는 지금까지 잘 버텨온 자신을 따뜻하게 안아주세요. 묵묵히 하루를 견뎌내는 당신은 이미 충분히 대견하고 자랑스러운 사람입니다.
+    </p>
+    <div class="quote-block">
+      <p class="quote-en">"You are braver than you believe, stronger than you seem, and smarter than you think."</p>
+      <div class="quote-divider"></div>
+      <p class="quote-ko">당신은 당신이 믿는 것보다 용감하고, 보기보다 강하며, 생각하는 것보다 똑똑하다.</p>
+      <span class="quote-source">— A.A. Milne (A.A. 밀른)</span>
+    </div>
+  </article>
+
+  <div class="section-rule"><div class="section-rule-diamond"></div></div>
+
+  <!-- ──────────────── STUDY TIP ──────────────── -->
+  <div class="tip-card">
+    <div class="section-header">
+      <div class="section-icon">💡</div>
+      <div class="section-title-block">
+        <p class="section-label">Study Strategy</p>
+        <h2 class="section-title">복잡한 안개를 걷어내는 명쾌한 지식의 지도, 마인드맵과 시각화</h2>
+        <p class="section-subtitle">추상적인 정보들을 방사형 구조로 시각화하여 지식의 연관성을 꿰뚫어 보십시오.</p>
+      </div>
+    </div>
+    <p class="section-body">
+      방대한 개념을 눈으로만 쫓다 보면 머릿속에서 정보가 파편화되어 흩어지기 쉽습니다. 이제 추상적인 정보나 핵심 개념들을 방사형 구조의 마인드맵, 그림, 표 등을 활용해 직접 시각화해 보세요. 이러한 전략은 지식 간의 위계와 연관성을 한눈에 파악하게 해줄 뿐만 아니라, 우뇌를 자극하여 빽빽한 텍스트 필기보다 훨씬 더 오랫동안 기억에 남게 돕습니다. 스스로 구조화하여 그려낸 지식의 지도가 실전에서 흔들리지 않는 가장 강력한 무기가 될 것입니다.
+    </p>
+    <div class="quote-block">
+      <p class="quote-en">"Vision is the art of seeing what is invisible to others."</p>
+      <div class="quote-divider"></div>
+      <p class="quote-ko">비전이란 다른 사람에게 보이지 않는 것을 보는 예술이다.</p>
+      <span class="quote-source">— Jonathan Swift (조너선 스위프트)</span>
+    </div>
+  </div>
+
+  <!-- ──────────────── CLOSING ──────────────── -->
+  <section class="closing">
+    <div class="closing-ornament">✦</div>
+    <p class="closing-text">
+      수험 생활은 고독한 마라톤이지만, 여러분은 결코 혼자가 아닙니다.<br />
+      이든관리형학습센터 엠베스트SE미사이든학원은 변함없는 이 자리에서<br />
+      여러분의 찬란한 결승선을 향한 여정을 끝까지 함께하겠습니다.
+    </p>
+    <div class="closing-sign">
+      원장
+      <strong>황붕주 드림</strong>
+    </div>
+  </section>
+
+  <!-- ──────────────── FOOTER ──────────────── -->
+  <footer class="footer">
+    <p class="footer-brand">이든관리형학습센터 엠베스트SE미사이든학원</p>
+    <p>경기도 하남시 미사강변대로 80 그린프라자 7층</p>
+    <p>문의: <a href="tel:010-8442-2817">010-8442-2817</a></p>
+    <p style="margin-top:12px; color: var(--rule);">© 2026 Eden Learning Center. All rights reserved.</p>
+  </footer>
+
+</div>
+</body>
+</html>
